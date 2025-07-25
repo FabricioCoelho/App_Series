@@ -1,3 +1,3 @@
-# flutter_application_1
+# App de Séries
 
-A new Flutter project.
+Projeto 02 da trilha de flutter da venturus
