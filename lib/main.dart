@@ -27,6 +27,19 @@ class _MainAppState extends State<MainApp> {
     TvShowScreen(tvShows: tvShows),
     AddTvShowScreen(),
   ];
+  void switchScreen(int index) {
+    setState(() {
+      currentScreenIndex = index;
+    });
+  }
+
+  //Theme control
+  bool isDark = false;
+  void switchTheme() {
+    setState(() {
+      isDark = !isDark;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -52,6 +65,7 @@ class _MainAppState extends State<MainApp> {
           fontWeight: FontWeight.bold,
           color: colorScheme.onPrimary,
         ),
+        iconTheme: IconThemeData(color: colorScheme.onPrimary, size: 36),
       ),
       cardTheme: CardThemeData(
         color: colorScheme.secondaryContainer,
@@ -74,6 +88,7 @@ class _MainAppState extends State<MainApp> {
           fontWeight: FontWeight.bold,
           color: colorSchemeDark.primary,
         ),
+        iconTheme: IconThemeData(color: colorScheme.onPrimary, size: 36),
       ),
       cardTheme: CardThemeData(
         color: colorSchemeDark.secondaryContainer,
@@ -88,11 +103,15 @@ class _MainAppState extends State<MainApp> {
       debugShowCheckedModeBanner: false,
       theme: customTheme,
       darkTheme: customThemeDark,
-      themeMode: ThemeMode.system,
+      themeMode: isDark ? ThemeMode.dark : ThemeMode.light,
 
       home: Scaffold(
         appBar: AppBar(title: const Text('Eu Amo Séries')),
-        drawer: CustomDrawer(),
+        drawer: CustomDrawer(
+          isDark: isDark,
+          switchTheme: switchTheme,
+          switchScreen: switchScreen,
+        ),
         body: screens[currentScreenIndex],
       ),
     );
