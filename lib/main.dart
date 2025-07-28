@@ -5,9 +5,15 @@ import 'package:flutter_application_1/tv_show_data.dart';
 import 'package:flutter_application_1/tv_show_model.dart';
 import 'package:flutter_application_1/tv_show_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MainApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => TvShowModel(),
+      child: const MainApp(),
+    ),
+  );
 }
 
 class MainApp extends StatefulWidget {
@@ -24,8 +30,8 @@ class _MainAppState extends State<MainApp> {
   int currentScreenIndex = 0;
 
   List<Widget> get screens => [
-    TvShowScreen(tvShows: tvShows),
-    AddTvShowScreen(),
+    TvShowScreen(),
+    AddTvShowScreen(switchScreen: switchScreen),
   ];
   void switchScreen(int index) {
     setState(() {
@@ -35,6 +41,10 @@ class _MainAppState extends State<MainApp> {
 
   //Theme control
   bool isDark = false;
+
+  get removeTvShow => null;
+
+  get addTvShow => null;
   void switchTheme() {
     setState(() {
       isDark = !isDark;

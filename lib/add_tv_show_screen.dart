@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/star_rating.dart';
 import 'package:flutter_application_1/tv_show_model.dart';
+import 'package:provider/provider.dart';
 
 class AddTvShowScreen extends StatefulWidget {
-  const AddTvShowScreen({super.key});
+  const AddTvShowScreen({super.key, required this.switchScreen});
+
+  //final Function(TvShow) addTvShow;
+  final Function(int) switchScreen;
 
   @override
   State<AddTvShowScreen> createState() => _AddTvShowScreenState();
@@ -26,9 +30,10 @@ class _AddTvShowScreenState extends State<AddTvShowScreen> {
           summary: _summaryController.text,
           rating: _rating,
         );
-        // Aqui você pode adicionar a lógica para salvar a série
-        // Por exemplo, criar um objeto TvShow e adicioná-lo a uma lista
-        Navigator.of(context).pop();
+
+        //widget.addTvShow(newTvShow);
+        context.read<TvShowModel>().addTvShow(newTvShow, context);
+        widget.switchScreen(0);
       }
     }
 
